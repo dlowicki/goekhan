@@ -1,0 +1,85 @@
+*{margin: 0; padding: 0; font-family: sans-serif;}
+body, html { background-color: rgb(10, 22, 22);}
+
+.container {
+    width: 90%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header {
+    color: white;
+    
+}
+.header h1 {
+    width: 200px;
+    padding: 10px 10px 0px 10px;
+    font-weight: 100;
+}
+.header h2 {
+    font-weight: 100;
+    padding: 0px 10px 0px 10px;
+    margin-top: -5px;
+    margin-left: 35px;
+    font-size: 1rem;
+}
+.navigation {
+    width: 100%;
+    height: 50px;
+}
+.navigation ul {
+    display: flex; 
+    flex-wrap: nowrap;
+    flex-direction: row;
+    list-style: none;
+    margin-top: 10px;
+}
+
+.navigation ul li {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px;
+    cursor: pointer;
+    color: white;
+    transition: 0.5s;
+    border-bottom: 2px solid transparent;
+}
+.navigation ul li:hover {
+    border-bottom: 2px solid darkgray;
+}
+
+.main {
+    width: 100%;
+    min-width: 300px;
+    height: auto;
+    max-height: 750px;
+    overflow: auto;
+}
+
+.data {
+    border: 1px solid white;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    padding: 8px;
+    color: white;
+    margin-bottom: 10px; 
+}
+
+.databox { overflow: hidden; }
+.databox input { outline: none; }
+.databox select { outline: none; }
+.databox-cb {width: 30px; margin-left: 5px; margin-top: 5px; }
+.databox-pn {width: 160px; margin-top: 5px;}
+.databox-vi {width: 150px; margin-top: 5px;}
+.databox-vd {width: 150px; margin-top: 5px;}
+.databox-ht {width: 100px; margin-top: 5px;}
+.databox-tt {width: 100px; margin-top: 5px;}
+.databox-kg {width: 130px; margin-left: 5px; margin-right: 5px; }
+.databox-kg select { width: 100%; font-size: 1rem; padding: 3px; background-color: transparent; color: white; }
+.databox-kg select option { color: black; }
+.databox-bg { margin-left: 5px; margin-right: 5px; }
+.databox-bg input { width: 250px; font-size: 1rem; padding: 3px; }
+.databox-lg { margin-left: 5px; margin-right: 5px; }
+.databox-lg input { width: 150px; font-size: 1rem; padding: 3px; }
