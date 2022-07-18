@@ -69,13 +69,16 @@ body, html { background-color: rgb(10, 22, 22);}
 
 .databox { overflow: hidden; }
 .databox input { outline: none; }
+.databox input[type=text] { background-color: transparent; color: white; border: 1px solid transparent; border-top-right-radius: 10px; border-bottom-right-radius: 10px; 
+padding: 4px 2px 4px 5px; cursor: pointer; }
+.databox input[type=text]:focus { border: 1px solid white;  }
 .databox select { outline: none; }
 .databox-cb {width: 30px; margin-left: 5px; margin-top: 5px; }
-.databox-pn {width: 160px; margin-top: 5px;}
-.databox-vi {width: 150px; margin-top: 5px;}
-.databox-vd {width: 150px; margin-top: 5px;}
-.databox-ht {width: 100px; margin-top: 5px;}
-.databox-tt {width: 100px; margin-top: 5px;}
+.databox-pn {margin-top: 5px; margin-left: 5px; }
+.databox-vi {margin-top: 5px; margin-left: 5px;}
+.databox-vd {margin-top: 5px; margin-left: 5px;}
+.databox-ht {margin-top: 5px; margin-left: 5px;}
+.databox-tt { margin-top: 5px; margin-left: 5px;}
 .databox-kg {width: 130px; margin-left: 5px; margin-right: 5px; }
 .databox-kg select { width: 100%; font-size: 1rem; padding: 3px; background-color: transparent; color: white; }
 .databox-kg select option { color: black; }
@@ -83,3 +86,50 @@ body, html { background-color: rgb(10, 22, 22);}
 .databox-bg input { width: 250px; font-size: 1rem; padding: 3px; }
 .databox-lg { margin-left: 5px; margin-right: 5px; }
 .databox-lg input { width: 150px; font-size: 1rem; padding: 3px; }
+
+.field1 {
+    background-color: red;
+    width: auto; 
+    max-width: 120px;
+}
+
+.fieldSmall {
+    width: auto;
+    max-width: 50px;
+}
+.fieldMid {
+    width: auto;
+    max-width: 100px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.window {
+    position: absolute;
+    background-color: rgba(20,20,20,0.8); color: white;
+    margin-left: auto; margin-right: auto; display: block;
+    min-width: 320px; width: 30%;
+    height: 170px;
+    border-radius: 10px; border: 1px solid white;
+    display: none;
+}
+.window h2 { text-align: center; overflow: hidden; width: 96%; padding: 2%;}
+.window p { width: 78%; height: 70px; overflow: hidden; padding: 1%; margin-left: auto; margin-right: auto; display: block; } 
+.window-buttons { overflow: hidden; width: 100%; height: 30px; text-align: center; }
+.window-buttons button { width: 100px; padding:5px; color: white; cursor: pointer; margin: 0px 15px 0px 15px; }
+#window-button-close { background-color: red; transition: 0.5s; border: 1px solid white; }
+#window-button-close:hover { background-color: orange; }
+#window-button-create { background-color: green; transition: 0.5s; border: 1px solid white; }
+#window-button-create:hover { background-color: lightgreen; }

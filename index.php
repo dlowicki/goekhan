@@ -11,6 +11,8 @@ require_once('api/interactive.php');
         <title>Startseite</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="css/style.css">
+        <script src ="js/jquery.js"></script>
+        <!-- <script src ="js/script.nav.js"></script>-->
     </head>
     <body>
 
@@ -59,26 +61,19 @@ require_once('api/interactive.php');
 
         <div class="navigation">
             <ul>
-                <li>
+                <li class='nav-li-update'>
                     Aktualisieren
                 </li>
-                <li>
+                <li id="markAll" data="0">
                     Alle Auswählen
                 </li>
-                <li>
-                    Programm Hinzufügen
-                </li>
-                <li>
-                    Kategorie hinzufügen
-                </li>
-                <li>
-                    HowTo hinzufügen
-                </li>
-                <li>
+                <li onClick="createWindow()" class='nav-li-remove'>
                     Entfernen
                 </li>
             </ul>
         </div>
+
+        <div class='window'></div>
 
         <div class="main">
 
@@ -88,37 +83,26 @@ require_once('api/interactive.php');
         $csv->loadCSV();
 
     
-
+        $r=0;
         foreach ($csv->getContent() as $key => $value) {
+            $r++;
             $splitted = explode(";",$value[0]);
 
             echo "<div id='data-" . $splitted[0] . "' class='data'>";
-            echo "<div class='databox databox-cb'><input type='checkbox'></div>";
-            echo "<div class='databox databox-pn'><p>". $splitted[1] ."</p></div>";
-            echo "<div class='databox databox-vi'><p>". $splitted[2] . "</p></div>";
+            echo "<div class='databox databox-cb'><input type='checkbox' id='m-checkbox-".$splitted[0]."'></div>";
+            echo "<div class='databox databox-pn'><input type='text' value='".$splitted[1]."'  class='fieldMid' id='field-pn-".$splitted[0]."'></div>";
+            echo "<div class='databox databox-vi'><input type='text' value='".$splitted[2]."'  class='fieldSmall' id='field-vi-".$splitted[0]."'></div>";
             if($splitted[2] > $splitted[3])
             {
-                echo "<div class='databox databox-vd'><p style='color: orange; font-weight: 600;'>". $splitted[3] . "</p></div>";
+                echo "<div class='databox databox-vd'><input type='text' value='".$splitted[3]."' class='fieldSmall' id='field-vd-".$splitted[0]."' style='color: orange; font-weight: 600;'></div>";
             } else {
-                echo "<div class='databox databox-vd'><p>". $splitted[3] . "</p></div>";
+                echo "<div class='databox databox-vd'><input type='text' value='".$splitted[3]."' id='field-vd-".$splitted[0]."' class='fieldSmall'></div>";
             }
-            echo "<div class='databox databox-ht'><p>". $splitted[4] ."</p></div>";
-            echo "<div class='databox databox-tt'><p>Tooltip</p></div>";
-            echo "<div class='databox databox-kg'>";
-                echo "<select id='data-kg-".$splitted[0]."'>";
-                    foreach($interactive->loadKategorie() as $key2=>$kategorie)
-                    {
-                        if($kategorie == $splitted[5])
-                        {
-                            echo '<option value="'. $kategorie .'" selected="selected">'.$kategorie.'</option>';
-                        } else {
-                            echo '<option value="'. $kategorie .'">'.$kategorie.'</option>';
-                        }
-                    }
-                echo "</select>";
-            echo "</div>";
-            echo "<div class='databox databox-bg'><input type='text' placeholder='Bemerkung...' value='".$splitted[7]."'></div>";
-            echo "<div class='databox databox-bg'><input type='text' placeholder='Löschgrund...'></div>";
+            echo "<div class='databox databox-ht'><input type='text' value='".$splitted[4]."' class='fieldSmall' id='field-ht-".$splitted[0]."'></div>";
+            echo "<div class='databox databox-tt'><input type='text' value='Tooltip' class='fieldMid' id='field-tt-".$splitted[0]."'></div>";
+            echo "<div class='databox databox-kg'><input type='text' value='".$splitted[5]."' class='fieldMid' id='field-kg-".$splitted[5]."'></div>";
+            echo "<div class='databox databox-bg'><input type='text' placeholder='Bemerkung...' value='".$splitted[7]."' id='field-bg-".$splitted[0]."'></div>";
+            echo "<div class='databox databox-dl'><input type='text' placeholder='Löschgrund...' id='field-dl-".$splitted[0]."'></div>";
             echo "</div>";
         }
         
@@ -128,5 +112,48 @@ require_once('api/interactive.php');
 
     </div>
         
+
+    <script>
+        $('.databox-cb input').change(function() {
+	        
+        });
+
+        $(document).on('click','.nav-li-update',function(){
+            var arChecked = [];
+	        $('.databox-cb input').each(function(event){
+		    if($(this).prop('checked') == true){
+                const cbID = $(this).attr('id');
+                arChecked.push(cbID);
+		    }
+	        });
+            console.log(arChecked);
+            // Daten per POST an php senden, Version aktualisieren und CSV updaten
+	        if(arChecked.length == 0) { alert('Vorher ein Programm auswählen!'); }
+       });
+
+$(document).on('click','#markAll',function(){
+	if($(this).attr('data') == '0'){
+		$('.databox-cb').parent().find('input').attr('checked',true);
+		$(this).text('Alle Abwählen');
+		$(this).attr('data','1');
+	} else {
+		$('.databox-cb').parent().find('input').attr('checked',false);
+		$(this).text('Alle Auswählen');
+		$(this).attr('data','0');
+	}
+});
+
+function createWindow() {
+	$('.window').append('<h2>Das ist eine Überschrift</h2>');
+	$('.window').append('<p>Sind sie sich sicher?Sind sie sich sicher?Sind sie sich sicher?Sind sie sich sicher?Sind sie sich sicher?</p>');
+	$('.window').append('<div class="window-buttons"><button id="window-button-close">Schliessen</button><button id="window-button-create">Erstellen</button></div>');
+	$('.window').css('display','block');
+}
+
+$(document).on('click','#window-button-close',function(){
+	$('.window').empty();
+	$('.window').css('display','none');
+});
+    </script>
     </body>
 </html>
