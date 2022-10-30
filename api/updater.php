@@ -1,12 +1,11 @@
 <?php
 
+define("LPR", $_SERVER["DOCUMENT_ROOT"]);
 
 class Updater
 {
-    private $linkpath = "../data/link.ini";
+    private $linkpath = LPR . "/html/goekhan/data/link.ini";
     private $version = array();
-
-
 
     function getAllVersions() {
         $ini_array = parse_ini_file($this->linkpath);

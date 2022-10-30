@@ -2,15 +2,17 @@
 
 require_once('api/csv.php');
 require_once('api/interactive.php');
+require_once('api/updater.php');
 
 ?>
 
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Startseite</title>
+        <title>PL-Update</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src ="js/jquery.js"></script>
         <!-- <script src ="js/script.nav.js"></script>-->
     </head>
@@ -67,8 +69,11 @@ require_once('api/interactive.php');
                 <li id="markAll" data="0">
                     Alle Auswählen
                 </li>
-                <li onClick="createWindow()" class='nav-li-remove'>
+                <li onClick="removeProgramm()" class='nav-li-remove'>
                     Entfernen
+                </li>
+                <li onClick="addProgramm()" class='nav-li-add'>
+                    Hinzufügen
                 </li>
             </ul>
         </div>
@@ -80,30 +85,38 @@ require_once('api/interactive.php');
         <?php
         
         $csv = new CSV();
+        
         $csv->loadCSV();
 
+        //$csv->updateVersionCSV(1,"21.10");
+
+        //$updater = new Updater();
+        //$updatedVersions = $updater->getAllVersions();
+
+        // Wenn auf aktualisieren klicken dann Daten von Chip.de ziehen
+        // Gezogene Daten im Browser als localStorage speichern
     
         $r=0;
         foreach ($csv->getContent() as $key => $value) {
-            $r++;
-            $splitted = explode(";",$value[0]);
+                $splitted = explode(";",$value[0]);
 
-            echo "<div id='data-" . $splitted[0] . "' class='data'>";
-            echo "<div class='databox databox-cb'><input type='checkbox' id='m-checkbox-".$splitted[0]."'></div>";
-            echo "<div class='databox databox-pn'><input type='text' value='".$splitted[1]."'  class='fieldMid' id='field-pn-".$splitted[0]."'></div>";
-            echo "<div class='databox databox-vi'><input type='text' value='".$splitted[2]."'  class='fieldSmall' id='field-vi-".$splitted[0]."'></div>";
-            if($splitted[2] > $splitted[3])
-            {
-                echo "<div class='databox databox-vd'><input type='text' value='".$splitted[3]."' class='fieldSmall' id='field-vd-".$splitted[0]."' style='color: orange; font-weight: 600;'></div>";
-            } else {
-                echo "<div class='databox databox-vd'><input type='text' value='".$splitted[3]."' id='field-vd-".$splitted[0]."' class='fieldSmall'></div>";
-            }
-            echo "<div class='databox databox-ht'><input type='text' value='".$splitted[4]."' class='fieldSmall' id='field-ht-".$splitted[0]."'></div>";
-            echo "<div class='databox databox-tt'><input type='text' value='Tooltip' class='fieldMid' id='field-tt-".$splitted[0]."'></div>";
-            echo "<div class='databox databox-kg'><input type='text' value='".$splitted[5]."' class='fieldMid' id='field-kg-".$splitted[5]."'></div>";
-            echo "<div class='databox databox-bg'><input type='text' placeholder='Bemerkung...' value='".$splitted[7]."' id='field-bg-".$splitted[0]."'></div>";
-            echo "<div class='databox databox-dl'><input type='text' placeholder='Löschgrund...' id='field-dl-".$splitted[0]."'></div>";
-            echo "</div>";
+                echo "<div id='data-" . $splitted[0] . "' class='data'>";
+                echo "<div class='databox databox-cb'><input type='checkbox' id='m-checkbox-".$splitted[0]."'></div>";
+                echo "<div class='databox databox-pn'><input type='text' value='".$splitted[1]."'  class='fieldMid' id='field-pn-".$splitted[0]."'></div>";
+                echo "<div class='databox databox-vi'><input type='text' value='".$splitted[2]."'  class='fieldSmall' id='field-vi-".$splitted[0]."'></div>";
+                if($splitted[2] > $splitted[3])
+                {
+                    echo "<div class='databox databox-vd'><input type='text' value='".$splitted[3]."' class='fieldSmall' id='field-vd-".$splitted[0]."' style='color: orange; font-weight: 600;'></div>";
+                } else {
+                    echo "<div class='databox databox-vd'><input type='text' value='".$splitted[3]."' id='field-vd-".$splitted[0]."' class='fieldSmall'></div>";
+                }
+                echo "<div class='databox databox-ht'><input type='text' value='".$splitted[4]."' class='fieldSmall' id='field-ht-".$splitted[0]."'></div>";
+                echo "<div class='databox databox-tt'><input type='text' value='Tooltip' class='fieldMid' id='field-tt-".$splitted[0]."'></div>";
+                echo "<div class='databox databox-kg'><input type='text' value='".$splitted[5]."' class='fieldMid' id='field-kg-".$splitted[5]."'></div>";
+                echo "<div class='databox databox-bg'><input type='text' placeholder='Bemerkung...' value='".$splitted[7]."' id='field-bg-".$splitted[0]."'></div>";
+                echo "<div class='databox databox-dl'><input type='text' placeholder='Löschgrund...' id='field-dl-".$splitted[0]."'></div>";
+                echo "</div>";
+                $r++;
         }
         
         
@@ -118,42 +131,135 @@ require_once('api/interactive.php');
 	        
         });
 
+        $(document).on('change','.databox-cb input',function(event){
+            event.preventDefault();
+            if(document.getElementById(event.target.id).checked == true){
+                $('#'+event.target.id).attr('checked',true);
+            } else {
+                $('#'+event.target.id).attr('checked',false);
+            }
+        });
+
         $(document).on('click','.nav-li-update',function(){
+            var arChecked = getCheckedProgramms();
+            // Daten per POST an php senden, Version aktualisieren und CSV updaten
+	        if(arChecked.length == 0) { alert('Vorher ein Programm auswählen!'); } else {
+                var data = '';
+                arChecked.forEach(element => {
+                    data = data + element.split('-')[2] + ';';
+                });
+
+                console.log('[INDEX] Data prepared');
+                
+                $.ajax({
+                    url: "api/validate.php",
+                    type: "post",
+                    data: {update: data},
+                    success: function (response) {
+                        console.log(response);
+                        location.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            }
+
+
+        });
+
+        $(document).on('click','#markAll',function(){
+            if($(this).attr('data') == '0'){
+                $('.databox-cb').parent().find('input').attr('checked',true);
+                $(this).text('Alle Abwählen');
+                $(this).attr('data','1');
+            } else {
+                $('.databox-cb').parent().find('input').attr('checked',false);
+                $(this).text('Alle Auswählen');
+                $(this).attr('data','0');
+            }
+        });
+
+        function removeProgramm() {
+            var arChecked = getCheckedProgramms();
+            if(arChecked.length == 0) { alert('Vorher ein Programm auswählen!'); } else {
+                var data = '';
+                arChecked.forEach(element => {
+                    data = data + element.split('-')[2] + ';';
+                });
+
+                console.log('[INDEX] Data prepared for removing');
+                
+                $.ajax({
+                    url: "api/validate.php",
+                    type: "post",
+                    data: {remove: data},
+                    success: function (response) {
+                        console.log(response);
+                        location.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            }
+        }
+
+        function addProgramm() {
+            $('.window').append('<h2>CHIP-URL hinzufügen</h2>');
+            $('.window').append('<input type="text" placeholder="URL..." id="field-url-add">');
+            $('.window').append('<div class="window-buttons"><button id="window-button-close">Schliessen</button><button id="window-button-create">Erstellen</button></div>');
+            $('.window').css('display','block');
+        }
+
+        $(document).on('click','#window-button-close',function(){
+            $('.window').empty();
+            $('.window').css('display','none');
+        });
+
+        $(document).on('click','#window-button-create',function(){
+            $('.window').empty();
+            $('.window').css('display','none');
+        });
+
+
+
+
+        $(document).on('focusout','.databox input[type=text]',function(){
+            const textfield = $(this).val();
+            var id = $(this).attr('id');
+
+            $.ajax({
+                url: "api/validate.php",
+                type: "post",
+                data: {focus: textfield.length+';'+textfield+';'+id},
+                success: function (response) {
+                    // You will get response from your PHP page (what you echo or print)
+                    console.log(response);
+                    
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+
+
+        });
+
+
+
+        function getCheckedProgramms(){
             var arChecked = [];
 	        $('.databox-cb input').each(function(event){
-		    if($(this).prop('checked') == true){
-                const cbID = $(this).attr('id');
-                arChecked.push(cbID);
-		    }
+                if($(this).prop('checked') == true){
+                    const cbID = $(this).attr('id');
+                    arChecked.push(cbID);
+                }
 	        });
-            console.log(arChecked);
-            // Daten per POST an php senden, Version aktualisieren und CSV updaten
-	        if(arChecked.length == 0) { alert('Vorher ein Programm auswählen!'); }
-       });
+            return arChecked;
+        }
 
-$(document).on('click','#markAll',function(){
-	if($(this).attr('data') == '0'){
-		$('.databox-cb').parent().find('input').attr('checked',true);
-		$(this).text('Alle Abwählen');
-		$(this).attr('data','1');
-	} else {
-		$('.databox-cb').parent().find('input').attr('checked',false);
-		$(this).text('Alle Auswählen');
-		$(this).attr('data','0');
-	}
-});
 
-function createWindow() {
-	$('.window').append('<h2>Das ist eine Überschrift</h2>');
-	$('.window').append('<p>Sind sie sich sicher?Sind sie sich sicher?Sind sie sich sicher?Sind sie sich sicher?Sind sie sich sicher?</p>');
-	$('.window').append('<div class="window-buttons"><button id="window-button-close">Schliessen</button><button id="window-button-create">Erstellen</button></div>');
-	$('.window').css('display','block');
-}
-
-$(document).on('click','#window-button-close',function(){
-	$('.window').empty();
-	$('.window').css('display','none');
-});
     </script>
     </body>
 </html>

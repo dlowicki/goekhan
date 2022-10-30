@@ -10,8 +10,6 @@ Created on 13.04.2022 by Mertero
 
 class Interactive
 {
-
-    
     public function loadKategorie() {
         $k = array(
             "Entpacker","Editor","Umbenennen","Video","System","Zwischenablage","Suchen",
