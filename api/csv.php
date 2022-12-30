@@ -1,12 +1,13 @@
 <?php
 
-define("LOCAL_PATH_ROOT", $_SERVER["DOCUMENT_ROOT"]);
-
 // API zum laden der CSV Datei passend für die index.php
+
+define("LOCAL_PATH_ROOT", $_SERVER["DOCUMENT_ROOT"]);
 
 class CSV
 {
     private $path = LOCAL_PATH_ROOT . "/html/goekhan/data/data.csv";
+    private $pathINI = LOCAL_PATH_ROOT . "/html/goekhan/data/link.ini";
     private $content = array();
 
     public function loadCSV() {
@@ -42,7 +43,7 @@ class CSV
                     $temp[7] = $csvData[7]; // Bemerkung
                     $temp[8] = $csvData[8]; // Löschgrund
                     $strTemp = implode(';',$temp);
-                    array_push($content,$strTemp ."\r\n");
+                    array_push($content,$strTemp);
                 } else {
                     $temp[0] = $csvData[0]; // ID
                     $temp[1] = $csvData[1]; // Name
@@ -54,7 +55,7 @@ class CSV
                     $temp[7] = $csvData[7]; // Bemerkung
                     $temp[8] = $csvData[8]; // Löschgrund
                     $strTemp = implode(';',$temp);
-                    array_push($content,$strTemp ."\r\n");
+                    array_push($content,$strTemp);
                 }
             }
             fclose($handle);
@@ -91,7 +92,7 @@ class CSV
                     $temp[7] = $csvData[7]; // Bemerkung
                     $temp[8] = $csvData[8]; // Löschgrund
                     $strTemp = implode(';',$temp);
-                    array_push($content,$strTemp ."\r\n");
+                    array_push($content,$strTemp);
                     $r++;
                 }
             }
@@ -104,13 +105,16 @@ class CSV
             }
             if(fclose($file))
             {
+                $this->removeProgrammLink($id);
                 return true;
             }
         }
         return false;
     }
 
-
+    // Parameter = Splitt from ID of element
+    // Identifier (pn = Programm Name)
+    // ID = (CSV Row)
     public function updateInputCSV($identifier, $id, $text) {
         if (($handle = fopen($this->path, "r")) !== FALSE) {
             $count = 0; $temp = array(); $content = array();
@@ -120,6 +124,7 @@ class CSV
 
                 if($csvData[0] == $id)
                 {
+                    echo $id . " - " . $identifier . " - " . $text;
                     $temp[0] = $csvData[0]; // ID
                     if($identifier == 'pn') { $temp[1] = $text; } else { $temp[1] = $csvData[1]; }
                     if($identifier == 'vi') { $temp[2] = $text; } else { $temp[2] = $csvData[2]; }
@@ -130,7 +135,7 @@ class CSV
                     if($identifier == 'bg') { $temp[7] = $text; } else { $temp[7] = $csvData[7]; }
                     if($identifier == 'dl') { $temp[8] = $text; } else { $temp[8] = $csvData[8]; }
                     $strTemp = implode(';',$temp);
-                    array_push($content,$strTemp ."\r\n");
+                    array_push($content,$strTemp);
                 } else {
                     $temp[0] = $csvData[0]; // ID
                     $temp[1] = $csvData[1]; // Name
@@ -142,7 +147,7 @@ class CSV
                     $temp[7] = $csvData[7]; // Bemerkung
                     $temp[8] = $csvData[8]; // Löschgrund
                     $strTemp = implode(';',$temp);
-                    array_push($content,$strTemp ."\r\n");
+                    array_push($content,$strTemp);
                 }
             }
 
@@ -159,12 +164,22 @@ class CSV
         return false;
     }
 
-
+    private function removeProgrammLink($id) {
+        $data = parse_ini_file($pathINI, false);
+        $input = "";
+        foreach ($data as $key => $value) { if($key != $id){ $input = $input . "$key=$value"; } }
+        $handle = fopen('../data/link.ini','w');
+        fwrite($handle, $input);
+        fclose($handle);
+    }
 
 
     public function getContent(){ return $this->content; }
 
     
 }
+
+
+
 
 ?>

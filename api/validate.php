@@ -3,6 +3,7 @@
 require_once('csv.php');
 require_once('updater.php');
 
+
 if(isset($_POST['update']))
 {
     $data = explode(';',$_POST['update']);
@@ -28,12 +29,15 @@ if(isset($_POST['update']))
 if(isset($_POST['focus']))
 {
     $data = explode(';',$_POST['focus']);
+    // $data[0] = Text length
+    // $data[1] = Input from textfield
+    // $data[2] = id from element (field-kg-1)
 
     if(sizeof($data) == 3){
-        $text = substr($data[1], strlen($data[1])-$data[0],$data[0]);
+        $text = substr($data[1], strlen($data[1])-$data[0],$data[0]); 
         $identifier = explode('-',$data[2])[1]; // Identifier (pn = Programm Name)
         $id = explode('-',$data[2])[2]; // ID (CSV Row)
-
+        print_r($data);
         $csv = new CSV();
         $updater = new Updater();
 

@@ -48,7 +48,7 @@ require_once('api/updater.php');
 
     ?>
 
-
+    
 
     <div class="container">
 
@@ -95,11 +95,13 @@ require_once('api/updater.php');
 
         // Wenn auf aktualisieren klicken dann Daten von Chip.de ziehen
         // Gezogene Daten im Browser als localStorage speichern
-    
+
+        // CSV
+        // 0 = ID | 1 = Name | 2 = VersionInternet | 3 = VersionDatabase | 4 = Ausführen mit | 5 = ToolTip | 6 = 
         $r=0;
         foreach ($csv->getContent() as $key => $value) {
                 $splitted = explode(";",$value[0]);
-
+                
                 echo "<div id='data-" . $splitted[0] . "' class='data'>";
                 echo "<div class='databox databox-cb'><input type='checkbox' id='m-checkbox-".$splitted[0]."'></div>";
                 echo "<div class='databox databox-pn'><input type='text' value='".$splitted[1]."'  class='fieldMid' id='field-pn-".$splitted[0]."'></div>";
@@ -111,8 +113,8 @@ require_once('api/updater.php');
                     echo "<div class='databox databox-vd'><input type='text' value='".$splitted[3]."' id='field-vd-".$splitted[0]."' class='fieldSmall'></div>";
                 }
                 echo "<div class='databox databox-ht'><input type='text' value='".$splitted[4]."' class='fieldSmall' id='field-ht-".$splitted[0]."'></div>";
-                echo "<div class='databox databox-tt'><input type='text' value='Tooltip' class='fieldMid' id='field-tt-".$splitted[0]."'></div>";
-                echo "<div class='databox databox-kg'><input type='text' value='".$splitted[5]."' class='fieldMid' id='field-kg-".$splitted[5]."'></div>";
+                echo "<div class='databox databox-tt'><input type='text' value='".$splitted[5]."' class='fieldMid' id='field-tt-".$splitted[0]."'></div>";
+                echo "<div class='databox databox-kg'><input type='text' value='".$splitted[6]."' class='fieldMid' id='field-kg-".$splitted[0]."'></div>";
                 echo "<div class='databox databox-bg'><input type='text' placeholder='Bemerkung...' value='".$splitted[7]."' id='field-bg-".$splitted[0]."'></div>";
                 echo "<div class='databox databox-dl'><input type='text' placeholder='Löschgrund...' id='field-dl-".$splitted[0]."'></div>";
                 echo "</div>";

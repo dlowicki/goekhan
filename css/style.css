@@ -1,52 +1,52 @@
 *{margin: 0; padding: 0; font-family: sans-serif;}
 body, html { background-color: rgb(10, 22, 22);}
 
-.container {width: 80%; height: auto; margin-left: auto; margin-right: auto;}
-.header {color: white;    }
+.container { width: 80%; height: auto; margin-left: auto; margin-right: auto;}
+.header { color: white;    }
 .header h1 {width: 200px;padding: 10px 10px 0px 10px;font-weight: 100;}
 .header h2 {font-weight: 100;padding: 0px 10px 0px 10px;margin-top: -5px;margin-left: 35px;font-size: 1rem;}
 
 .navigation {width: 100%; height: 50px; }
 .navigation ul {display: flex; flex-wrap: nowrap; flex-direction: row; list-style: none; margin-top: 10px;}
-.navigation ul li {margin-left: 5px;margin-right: 5px;padding: 5px;cursor: pointer;color: white;transition: 0.5s;border-bottom: 2px solid transparent;}
+.navigation ul li { margin-left: 0.5%;margin-right: 0.5%; padding: 5px;cursor: pointer;color: white;transition: 0.5s;border-bottom: 2px solid transparent;}
+.navigation ul li:nth-child(2) { min-width: 110px;} /* Second Nav Button disable wrap and set min width */
 .navigation ul li:hover {border-bottom: 2px solid darkgray;}
 
-.main {width: 100%;min-width: 300px;height: auto;max-height: 750px;overflow: auto;}
+.main {width: 80%; min-width: 300px; height: auto; max-height: 750px;overflow: auto; margin-left: auto; margin-right: auto;}
 .data { 
     border: 1px solid white;display: flex; flex-wrap: wrap; flex-direction: row; padding: 2px 4px 2px 4px; color: white;margin-bottom: 10px;
     transition: 0.5s;
   }
-  .data:hover { background-color: rgba(30, 87, 87, 0.8); border: 1px solid darkgray; cursor: pointer; }
-.databox { overflow: hidden; margin-left: auto; margin-right: auto;}
+.data:hover { background-color: rgba(30, 87, 87, 0.8); border: 1px solid darkgray; cursor: pointer; }
+.databox { overflow: hidden; }
 .databox input { outline: none; }
 .databox input[type=text] { background-color: transparent; color: white; border: 1px solid transparent; border-top-right-radius: 10px; border-bottom-right-radius: 10px; 
 padding: 4px 2px 4px 5px; cursor: text; }
 .databox input[type=text]:focus { border: 1px solid white;  }
-.databox select { outline: none; }
-.databox-cb {width: 30px; margin-left: 5px; margin-top: 4px; }
-.databox-pn {margin-left: 5px; min-width: 100px; }
-.databox-vi {margin-left: 5px; min-width: 50px; }
-.databox-vd {margin-left: 5px; min-width: 50px; }
-.databox-ht {margin-left: 5px; min-width: 50px; }
-.databox-tt { margin-left: 5px; min-width: 75px; }
-.databox-kg {width: 130px; margin-left: 5px; margin-right: 5px; min-width: 100px; }
+.databox-cb { width: 30px; margin-left: 5px; margin-top: 4px; }
+.databox-pn { margin-left: 5px; width: 160px; }
+.databox-pn input { width: 150px; }
+.databox-vi { margin-left: 5px; width: 60px; }
+.databox-vi input { width: 50px; }
+.databox-vd { margin-left: 5px; width: 60px; }
+.databox-vd input { width: 50px; }
+.databox-ht { margin-left: 5px; width: 60px; }
+.databox-ht input { width: 50px; }
+.databox-tt { margin-left: 5px; width: 85px; }
+.databox-tt input { width: 75px; }
+.databox-kg { margin-left: 5px; margin-right: 5px; width: 110px; }
+.databox-kg input { width: 100px; }
 .databox-bg { margin-left: 5px; margin-right: 5px; }
-.databox-bg input { width: 250px; padding: 3px; }
+.databox-bg input { width: 200px; padding: 3px; }
 .databox-lg { margin-left: 5px; margin-right: 5px; }
 .databox-lg input { width: 150px; padding: 3px; }
 
-.field1 {background-color: red;width: auto; max-width: 120px;}
-.fieldSmall {width: auto;max-width: 50px;}
-.fieldMid {width: auto;max-width: 100px;}
+.field1 { background-color: red; width: auto; max-width: 120px; }
 
 .window {
-    position: absolute;
-    background-color: rgba(20,20,20,0.8); color: white;
-    margin-left: auto; margin-right: auto; display: block;
-    min-width: 320px; width: 30%;
-    height: 170px;
-    border-radius: 10px; border: 1px solid white;
-    display: none;
+    position: absolute; background-color: rgba(20,20,20,0.8); color: white;
+    margin-left: auto; margin-right: auto; display: block; min-width: 320px; width: 30%;
+    height: 170px; border-radius: 10px; border: 1px solid white; display: none;
 }
 .window h2 { text-align: center; overflow: hidden; width: 96%; padding: 2%;}
 .window p { width: 78%; height: 70px; overflow: hidden; padding: 1%; margin-left: auto; margin-right: auto; display: block; } 
@@ -62,12 +62,12 @@ padding: 4px 2px 4px 5px; cursor: text; }
     
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 480px) {
     body,html { height: 95%; }
     .container { width: 90%; height: 80%; }
     .main { height: 100%; }
 
-    .navigation {width: 100%; height: 100px; }
+    .navigation {width: 100%; height: 150px; overflow: hidden;}
     .navigation ul {display: flex; flex-wrap: wrap; flex-direction: row; list-style: none; margin-top: 10px; }
     .navigation ul li {width: 100%; text-align: center;padding: 5px; color: white; border-bottom: 2px solid transparent; }
 

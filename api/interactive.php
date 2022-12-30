@@ -3,9 +3,6 @@
 /*
 API Interactive 
 Created on 13.04.2022 by Mertero
-
-
-
 */
 
 class Interactive

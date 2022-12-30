@@ -1,10 +1,10 @@
 <?php
 
-define("LPR", $_SERVER["DOCUMENT_ROOT"]);
+//define("LOCAL_PATH_ROOT", $_SERVER["DOCUMENT_ROOT"]);
 
 class Updater
 {
-    private $linkpath = LPR . "/html/goekhan/data/link.ini";
+    private $linkpath = LOCAL_PATH_ROOT . "/html/goekhan/data/link.ini";
     private $version = array();
 
     function getAllVersions() {
