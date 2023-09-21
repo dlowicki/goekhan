@@ -13,12 +13,17 @@ if(isset($_POST['update']))
 
     for ($i=0; $i < sizeof($data)-1; $i++) { 
         $newVersion = $updater->getOneVersion($data[$i]);
-        echo "[Validate] Version " . $newVersion . " erkannt für " . $data[$i] . "\r\n";
-        if($csv->updateVersionCSV($data[$i],$newVersion)){
-            echo "[Validate] Aktualisierung von " . $data[$i] . " auf die Version " . $newVersion . " erfolgreich!" . "\r\n";;
+        if($newVersion == false){ 
+            echo "[Validate] Kein Chip Link in 'link.ini' gefunden zu ID " . $data[$i]; 
         } else {
-            echo "[Validate] Aktualisierung von " . $data[$i] . " fehlgeschlagen!" . "\r\n";;
+            echo "[Validate] Version " . $newVersion . " erkannt für " . $data[$i] . "\r\n";
+            if($csv->updateVersionCSV($data[$i],$newVersion)){
+                echo "[Validate] Aktualisierung von " . $data[$i] . " auf die Version " . $newVersion . " erfolgreich!" . "\r\n";;
+            } else {
+                echo "[Validate] Aktualisierung von " . $data[$i] . " fehlgeschlagen!" . "\r\n";;
+            }
         }
+
     }
     return true;
 }

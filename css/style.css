@@ -12,18 +12,17 @@ body, html { background-color: rgb(10, 22, 22);}
 .navigation ul li:nth-child(2) { min-width: 110px;} /* Second Nav Button disable wrap and set min width */
 .navigation ul li:hover {border-bottom: 2px solid darkgray;}
 
-.main {width: 80%; min-width: 300px; height: auto; max-height: 750px;overflow: auto; margin-left: auto; margin-right: auto;}
+.main { width: 95%; min-width: 300px; height: auto; max-height: 750px; overflow: auto; margin-left: auto; margin-right: auto; }
 .data { 
-    border: 1px solid white;display: flex; flex-wrap: wrap; flex-direction: row; padding: 2px 4px 2px 4px; color: white;margin-bottom: 10px;
-    transition: 0.5s;
+    display: flex; flex-wrap: wrap; flex-direction: row; padding: 2px 4px 2px 4px; color: white;margin-bottom: 10px;
+    transition: 0.5s; border-left: 3px solid transparent;
   }
-.data:hover { background-color: rgba(30, 87, 87, 0.8); border: 1px solid darkgray; cursor: pointer; }
+.data:hover { border-left: 3px solid white; }
 .databox { overflow: hidden; }
 .databox input { outline: none; }
-.databox input[type=text] { background-color: transparent; color: white; border: 1px solid transparent; border-top-right-radius: 10px; border-bottom-right-radius: 10px; 
-padding: 4px 2px 4px 5px; cursor: text; }
+.databox input[type=text] { background-color: transparent; color: white; border: 1px solid darkgray; outline: none; padding: 4px 2px 4px 5px; cursor: text; }
 .databox input[type=text]:focus { border: 1px solid white;  }
-.databox-cb { width: 30px; margin-left: 5px; margin-top: 4px; }
+.databox-cb { width: 30px; margin-left: 5px; margin-top: 4px; border: 0px;}
 .databox-pn { margin-left: 5px; width: 160px; }
 .databox-pn input { width: 150px; }
 .databox-vi { margin-left: 5px; width: 60px; }
