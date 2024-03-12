@@ -1,8 +1,10 @@
 <?php
 
 // API zum laden der CSV Datei passend für die index.php
+require("lastupdate.php");
 
-define("LOCAL_PATH_ROOT", $_SERVER["DOCUMENT_ROOT"]);
+//define("LOCAL_PATH_ROOT", $_SERVER["DOCUMENT_ROOT"]);
+// Schon aus lastupdate.php
 
 class CSV
 {
@@ -36,7 +38,7 @@ class CSV
                     $temp[0] = $csvData[0]; // ID
                     $temp[1] = $csvData[1]; // Name
                     $temp[2] = $version; // Version Internet
-                    $temp[3] = $version; // Version Datenbank
+                    $temp[3] = $csvData[3]; // Version Datenbank
                     $temp[4] = $csvData[4]; // Entpack Methode
                     $temp[5] = $csvData[5]; // Tooltip
                     $temp[6] = $csvData[6]; // Kategorie
@@ -67,6 +69,7 @@ class CSV
             }
             if(fclose($file))
             {
+                updateTime();
                 return true;
             }
         }
@@ -158,6 +161,7 @@ class CSV
             }
             if(fclose($file))
             {
+                updateTime(); // Funktion aus lastupdate.php
                 return true;
             }
         }

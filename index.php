@@ -66,21 +66,33 @@ require_once('api/updater.php');
                 <li class='nav-li-update'>
                     Aktualisieren
                 </li>
-                <li id="markAll" data="0">
-                    Alle Auswählen
+                <li onClick="addProgramm()" class='nav-li-add'>
+                    Hinzufügen
                 </li>
                 <li onClick="removeProgramm()" class='nav-li-remove'>
                     Entfernen
                 </li>
-                <li onClick="addProgramm()" class='nav-li-add'>
-                    Hinzufügen
-                </li>
             </ul>
+            <div class="lastupdate">
+                <h2 style="display:block; float:right; margin-right: 5%; color:white; font-size: 1rem;"></h2>
+            </div>
         </div>
 
         <div class='window'></div>
 
         <div class="main">
+
+        <div class="data">
+            <div class="databox databox-cb"><input type="checkbox" id="markAll" data="0"></div>
+            <div class="databox databox-pn"><h3>Program</h3></div>
+            <div class="databox databox-vi"><h3>VI</h3></div>
+            <div class="databox databox-vd"><h3>VD</h3></div>
+            <div class="databox databox-ht"><h3>Exe.</h3></div>
+            <div class="databox databox-tt"><h3>ToolTip</h3></div>
+            <div class="databox databox-kg"><h3>Platzhalter</h3></div>
+            <div class="databox databox-bg"><h3>Bemerkung</h3></div>
+            <div class="databox databox-dl"><h3>Löschgrund</h3></div>
+        </div>
 
         <?php
         
@@ -129,9 +141,10 @@ require_once('api/updater.php');
         
 
     <script>
-        $('.databox-cb input').change(function() {
-	        
+        $.get( "api/lastupdate.php?display=true", function( data ) {
+            $('.lastupdate h2').text(data);    
         });
+
 
         $(document).on('change','.databox-cb input',function(event){
             event.preventDefault();
@@ -236,7 +249,6 @@ require_once('api/updater.php');
                 type: "post",
                 data: {focus: textfield.length+';'+textfield+';'+id},
                 success: function (response) {
-                    // You will get response from your PHP page (what you echo or print)
                     console.log(response);
                     
                 },
@@ -253,7 +265,7 @@ require_once('api/updater.php');
         function getCheckedProgramms(){
             var arChecked = [];
 	        $('.databox-cb input').each(function(event){
-                if($(this).prop('checked') == true){
+                if($(this).prop('checked') == true && $(this).attr('id') != "markAll"){
                     const cbID = $(this).attr('id');
                     arChecked.push(cbID);
                 }

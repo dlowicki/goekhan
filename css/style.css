@@ -6,10 +6,9 @@ body, html { background-color: rgb(10, 22, 22);}
 .header h1 {width: 200px;padding: 10px 10px 0px 10px;font-weight: 100;}
 .header h2 {font-weight: 100;padding: 0px 10px 0px 10px;margin-top: -5px;margin-left: 35px;font-size: 1rem;}
 
-.navigation {width: 100%; height: 50px; }
+.navigation {width: 100%; height: 50px; margin-top: 2%;}
 .navigation ul {display: flex; flex-wrap: nowrap; flex-direction: row; list-style: none; margin-top: 10px;}
 .navigation ul li { margin-left: 0.5%;margin-right: 0.5%; padding: 5px;cursor: pointer;color: white;transition: 0.5s;border-bottom: 2px solid transparent;}
-.navigation ul li:nth-child(2) { min-width: 110px;} /* Second Nav Button disable wrap and set min width */
 .navigation ul li:hover {border-bottom: 2px solid darkgray;}
 
 .main { width: 95%; min-width: 300px; height: auto; max-height: 750px; overflow: auto; margin-left: auto; margin-right: auto; }
@@ -35,7 +34,7 @@ body, html { background-color: rgb(10, 22, 22);}
 .databox-tt input { width: 75px; }
 .databox-kg { margin-left: 5px; margin-right: 5px; width: 110px; }
 .databox-kg input { width: 100px; }
-.databox-bg { margin-left: 5px; margin-right: 5px; }
+.databox-bg { margin-left: 5px; margin-right: 5px; width: 220px;}
 .databox-bg input { width: 200px; padding: 3px; }
 .databox-lg { margin-left: 5px; margin-right: 5px; }
 .databox-lg input { width: 150px; padding: 3px; }
