@@ -3,6 +3,7 @@
 require_once('api/csv.php');
 require_once('api/interactive.php');
 require_once('api/updater.php');
+require_once('api/log.php');
 
 ?>
 
@@ -21,7 +22,10 @@ require_once('api/updater.php');
     <?php
 
     $interactive = new Interactive();
+    $log = new Log();
     
+    $log->checkLogExist();
+
     // Layout von CSV
     // Programname: Alphabetisch sortiert | Anzeigename soll frei wählbar sein, nicht unbedingt gleich wie im Chip Quelltext
     // Programname soll, falls Plugin, Addon usw. Die Farbe blau erhalten

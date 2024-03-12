@@ -1,0 +1,7 @@
+[Log] 12-03-2024 23:21:16 >> Log Datei wurde erstellt.
+[Validate][Update] 12-03-2024 23:29:00 >> Kein Chip Link in 'link.ini' gefunden zu ID 4
+[Validate][Update] 12-03-2024 23:29:08 >> Kein Chip Link in 'link.ini' gefunden zu ID 4
+[Validate][Update] 12-03-2024 23:29:21 >> [Validate] Version 6.0 Final erkannt für 5
+[Validate][Update] 12-03-2024 23:29:21 >> [Validate] Aktualisierung von 5 auf die Version 6.0 Final erfolgreich!
+[Validate][Update] 12-03-2024 23:31:10 >> Version 1.55 erkannt für 9
+[Validate][Update] 12-03-2024 23:31:10 >> Aktualisierung von 9 auf die Version 1.55 erfolgreich!
